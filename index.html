@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Підбір репетитора</title>
+
+    <!-- Підключення шрифту -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Стилі -->
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            height: 10px;
+            width: 0;
+            background-color: #4caf50;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group button {
+            display: inline-block;
+            padding: 12px 15px;
+            margin-right: 10px;
+            margin-bottom: 15px;
+            background-color: rgba(135, 206, 250, 0.8); /* Приємно блакитний з прозорістю */
+            color: white;
+            border: none;
+            border-radius: 30px; /* Округлі кнопки */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: rgba(135, 206, 250, 1); /* Темніший блакитний при наведенні */
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            background-color: #4caf50;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 30px; /* Округла кнопка */
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .back-btn {
+            background-color: #f1c40f;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 30px; /* Округла кнопка */
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: #f39c12;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Підбір репетитора</h1>
+
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+
+        <!-- Інтеграція з Formspree -->
+        <form id="quizForm" action="https://formspree.io/f/xdknvnop" method="POST">
+            <!-- Поля для зберігання відповідей -->
+            <input type="hidden" name="class" id="classInput">
+            <input type="hidden" name="task" id="taskInput">
+            <input type="hidden" name="level" id="levelInput">
+
+            <!-- Крок 1 -->
+            <div class="form-step active" id="step1">
+                <div class="form-group">
+                    <label>У якому класі навчається Ваша дитина?</label>
+                    <button type="button" data-value="1">1</button>
+                    <button type="button" data-value="2">2</button>
+                    <button type="button" data-value="3">3</button>
+                    <button type="button" data-value="4">4</button>
+                    <button type="button" data-value="5">5</button>
+                    <button type="button" data-value="6">6</button>
+                    <button type="button" data-value="7">7</button>
+                    <button type="button" data-value="8">8</button>
+                    <button type="button" data-value="9">9</button>
+                    <button type="button" data-value="10">10</button>
+                    <button type="button" data-value="11">11</button>
+                </div>
+            </div>
+
+            <!-- Крок 2 -->
+            <div class="form-step" id="step2">
+                <div class="form-group">
+                    <label>Яку задачу має взяти репетитор?</label>
+                    <button type="button" data-value="homework">📚 Допомога з домашніми завданнями</button>
+                    <button type="button" data-value="grades">📈 Покращення оцінок у школі</button>
+                    <button type="button" data-value="catch-up">⏳ Наздогнати шкільну програму</button>
+                    <button type="button" data-value="advanced">🎓 Отримати вищий рівень знань</button>
+                    <button type="button" data-value="nmt">📝 Підготовка до НМТ</button>
+                </div>
+            </div>
+
+            <!-- Крок 3 -->
+            <div class="form-step" id="step3">
+                <div class="form-group">
+                    <label>Як рівень знань зараз?</label>
+                    <button type="button" data-value="low">😕 Низький (оцінка 5-6)</button>
+                    <button type="button" data-value="medium">🙂 Середній (оцінка 7-8)</button>
+                    <button type="button" data-value="above-average">😊 Вище середнього (оцінка 9-10)</button>
+                    <button type="button" data-value="high">😎 Високий (оцінка 11-12)</button>
+                </div>
+            </div>
+
+            <!-- Крок 4 -->
+            <div class="form-step" id="step4">
+                <div class="form-group">
+                    <label for="name">Ваше ім'я</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Ваш номер телефону</label>
+                    <input type="tel" id="phone" name="phone" required maxlength="12">
+                </div>
+                <button type="submit" class="submit-btn">Отримати репетитора</button>
+            </div>
+
+            <button type="button" class="back-btn" id="backButton" style="display: none;">Назад</button>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const steps = document.querySelectorAll('.form-step');
+        const progressBar = document.getElementById('progressBar');
+        const backButton = document.getElementById('backButton');
+        let currentStep = 0;
+
+        // Поля для збереження відповідей
+        const classInput = document.getElementById('classInput');
+        const taskInput = document.getElementById('taskInput');
+        const levelInput = document.getElementById('levelInput');
+
+        // Телефонне поле
+        const phoneInput = document.getElementById('phone');
+        const phonePrefix = '+380';
+
+        // Встановити значення за замовчуванням
+        phoneInput.value = phonePrefix;
+
+        // Заборонити стирати префікс +380
+        phoneInput.addEventListener('input', (e) => {
+            if (!phoneInput.value.startsWith(phonePrefix)) {
+                phoneInput.value = phonePrefix;
+            }
+        });
+
+        // Перемістити курсор після префіксу при фокусі
+        phoneInput.addEventListener('focus', (e) => {
+            if (phoneInput.value === phonePrefix) {
+                phoneInput.setSelectionRange(phonePrefix.length, phonePrefix.length);
+            }
+        });
+
+        phoneInput.addEventListener('click', (e) => {
+            if (phoneInput.selectionStart < phonePrefix.length) {
+                phoneInput.setSelectionRange(phonePrefix.length, phonePrefix.length);
+            }
+        });
+
+        function showStep(stepIndex) {
+            steps.forEach((step, index) => {
+                step.classList.toggle('active', index === stepIndex);
+            });
+
+            progressBar.style.width = ((stepIndex + 1) / steps.length) * 100 + '%';
+
+            // Показати або сховати кнопку "Назад"
+            backButton.style.display = stepIndex > 0 ? 'block' : 'none';
+        }
+
+        document.querySelectorAll('button[data-value]').forEach(button => {
+            button.addEventListener('click', () => {
+                const step = button.closest('.form-step');
+                if (step.id === 'step1') {
+                    classInput.value = button.getAttribute('data-value');
+                } else if (step.id === 'step2') {
+                    taskInput.value = button.getAttribute('data-value');
+                } else if (step.id === 'step3') {
+                    levelInput.value = button.getAttribute('data-value');
+                }
+
+                currentStep++;
+                if (currentStep < steps.length) {
+                    showStep(currentStep);
+                }
+            });
+        });
+
+        backButton.addEventListener('click', () => {
+            currentStep--;
+            if (currentStep >= 0) {
+                showStep(currentStep);
+            }
+        });
+
+        document.getElementById('quizForm').addEventListener('submit', (e) => {
+            alert('Дякуємо за заповнення форми! Ми з вами зв\'яжемося.');
+        });
+
+        showStep(currentStep);
+    </script>
+
+</body>
+
+</html>
